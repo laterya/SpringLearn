@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userDaoBean" class="com.laterya.spring6.dao.UserDao"/>
+
+    <bean id="userServiceBean" class="com.laterya.spring6.service.UserService">
+        <property name="userDao" ref="userDaoBean"/>
+    </bean>
+
+    <bean id="orderDaoBean" class="com.laterya.spring6.dao.OrderDao"/>
+
+    <bean id="orderServiceBean" class="com.laterya.spring6.service.OrderService">
+        <!--index="0"表示构造方法的第一个参数，将orderDaoBean对象传递给构造方法的第一个参数。-->
+        <constructor-arg index="0" ref="orderDaoBean"/>
+        <constructor-arg index="1" ref="userDaoBean"/>
+    </bean>
+</beans>
