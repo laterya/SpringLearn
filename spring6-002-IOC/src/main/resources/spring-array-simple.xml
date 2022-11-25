@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="person" class="com.laterya.spring6.beans.Person">
+        <property name="foods">
+            <array>
+                <value>鸡排</value>
+                <value>牛肉</value>
+                <value>猪脑壳肉</value>
+            </array>
+        </property>
+    </bean>
+</beans>

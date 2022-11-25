@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="goods1" class="com.laterya.spring6.beans.Goods">
+        <property name="name" value="西瓜"/>
+    </bean>
+
+    <bean id="goods2" class="com.laterya.spring6.beans.Goods">
+        <property name="name" value="西瓜"/>
+    </bean>
+
+    <bean id="order" class="com.laterya.spring6.beans.Order">
+        <property name="goods">
+            <array>
+                <ref bean="goods1"/>
+                <ref bean="goods2"/>
+            </array>
+        </property>
+    </bean>
+</beans>

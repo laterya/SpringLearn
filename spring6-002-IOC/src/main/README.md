@@ -58,3 +58,28 @@
 - 也可以不指定下标和参数名，可以类型自动推断
 
 ## set注入专题
+### 注入内部Bean
+```
+    <bean id="userServiceBean" class="com.powernode.spring6.service.UserService">
+        <property name="userDao">
+            <bean class="com.powernode.spring6.dao.UserDao"/>
+        </property>
+    </bean>
+```
+### 注入简单类型
+- 如果把Date当做简单类型的话，日期字符串格式不能随便写。格式必须符合Date的toString()方法格式。显然这就比较鸡肋了。如果我们提供一个这样的日期字符串：2010-10-11，在这里是无法赋值给Date类型的属性的。
+- spring6之后，当注入的是URL，那么这个url字符串是会进行有效性检测的。如果是一个存在的url，那就没问题。如果不存在则报错
+### 注入数组
+- 注入List集合的时候使用list标签，如果List集合中是简单类型使用value标签，反之使用ref标签。
+- 注入set集合使用<set>标签，set集合中元素是简单类型的使用value标签，反之使用ref标签
+- 注入map集合使用<map>标签 如果key是简单类型，使用 key 属性，反之使用 key-ref 属性如果value是简单类型，使用 value 属性，反之使用 value-ref 属性
+- 注入Properties java.util.Properties继承java.util.Hashtable，所以Properties也是一个Map集合 使用<props>标签嵌套<prop>标签完成
+- 注入空字符串使用：<value/> 或者 value=""
+  注入null使用：<null/> 或者 不为该属性赋值
+### 注入的值中含有特殊字符
+XML中有5个特殊字符，分别是：<、>、'、"、&
+以上5个特殊符号在XML中会被特殊对待，会被当做XML语法的一部分进行解析，如果这些特殊符号直接出现在注入的字符串当中，会报错。
+解决方法：
+1. 特殊符号使用转义字符代替
+2. 将含有特殊符号的字符串放到：<![CDATA[]]> 当中。因为放在CDATA区中的数据不会被XML文件解析器解析
+3. 使用CDATA时，不能使用value属性，只能使用value标签
