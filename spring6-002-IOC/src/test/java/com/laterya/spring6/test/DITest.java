@@ -13,6 +13,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class DITest {
 
     @Test
+    public void testProperties() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-properties.xml");
+        MyDataSource dataSource = applicationContext.getBean("dataSource", MyDataSource.class);
+        System.out.println(dataSource);
+    }
+
+    @Test
     public void testSetDI() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml", "spring-simple-type.xml");
 //        UserService userServiceBean = applicationContext.getBean("userServiceBean", UserService.class);

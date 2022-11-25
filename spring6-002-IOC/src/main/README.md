@@ -83,3 +83,33 @@ XML中有5个特殊字符，分别是：<、>、'、"、&
 1. 特殊符号使用转义字符代替
 2. 将含有特殊符号的字符串放到：<![CDATA[]]> 当中。因为放在CDATA区中的数据不会被XML文件解析器解析
 3. 使用CDATA时，不能使用value属性，只能使用value标签
+### 自动装配
+```
+<bean id="userService" class="com.laterya.spring6.service.UserService" autowire="byName"/>
+    
+<bean id="aaa" class="com.powernode.spring6.dao.UserDao"/>
+```
+- UserService Bean中需要添加autowire="byName"，表示通过名称进行装配
+- UserService类中有一个UserDao属性，而UserDao属性的名字是aaa，对应的set方法是setAaa()，正好和UserDao Bean的id是一样的。这就是根据名称自动装配
+- 如果根据名称装配(byName)，底层会调用set方法进行注入
+- 无论是byName还是byType，在装配的时候都是基于set方法的。所以set方法是必须要提供的。提供构造方法是不行的
+
+##Spring引入外部属性配置
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="jdbc.properties"/>
+    
+    <bean id="dataSource" class="com.powernode.spring6.beans.MyDataSource">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+</beans>
+```

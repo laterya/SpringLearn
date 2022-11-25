@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="vipBean" class="bean.VipFactory" factory-method="get"/>
+
+    <bean id="dateBean" class="bean.DateFactoryBean">
+        <constructor-arg name="date" value="1999-10-11-19-55"/>
+    </bean>
+
+    <bean id="personBean" class="bean.Person">
+        <property name="date" ref="dateBean"/>
+    </bean>
+</beans>
